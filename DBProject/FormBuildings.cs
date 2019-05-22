@@ -55,5 +55,15 @@ namespace DBProject
             form.dataGridView1.DataSource = form.Dataset.Where(x => marked.Contains(x.identyfikator_budynku)).ToList();
             form.Show();
         }
+
+        /// <summary>
+        /// search button click handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
