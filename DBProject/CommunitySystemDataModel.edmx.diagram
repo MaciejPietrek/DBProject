@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6c9d8eac02d7474f876862708f68fc85" Name="Diagram1">
+        <EntityTypeShape EntityType="DBProjectModel.Budynki" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Dozorcy" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Dozorowania" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.FakturyNapraw" Width="1.5" PointX="9.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.FakturyWynajem" Width="1.5" PointX="10.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Firmy" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Mieszkania" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Najemcy" Width="1.5" PointX="6" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Naprawy" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Platnosci" Width="1.5" PointX="10.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.StanyNapraw" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.StanyUsterek" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Usterki" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.Wynajmy" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBProjectModel.BudynkiMieszkaniaUsterki" Width="2.375" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DBProjectModel.FK__Dozorowan__id_bu__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Mieszkani__id_bu__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Dozorowan__id_do__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__FakturyNa__id_na__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__FakturyWy__id_wy__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Naprawy__id_firm__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Usterki__id_mies__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Wynajmy__id_mies__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Wynajmy__id_naje__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Naprawy__id_uste__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Naprawy__stan__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Platnosci__id_wy__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="DBProjectModel.FK__Usterki__stan__412EB0B6" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

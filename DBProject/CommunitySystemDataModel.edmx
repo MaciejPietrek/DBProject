@@ -1,0 +1,963 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Budynki">
+          <Key>
+            <PropertyRef Name="id_budynku" />
+          </Key>
+          <Property Name="id_budynku" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adres_budynku" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dozorcy">
+          <Key>
+            <PropertyRef Name="id_dozorcy" />
+          </Key>
+          <Property Name="id_dozorcy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nr_telefonu" Type="varchar" MaxLength="12" />
+          <Property Name="Imie" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nazwisko" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PESEL" Type="varchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dozorowania">
+          <Key>
+            <PropertyRef Name="id_dozorcy" />
+            <PropertyRef Name="id_budynku" />
+          </Key>
+          <Property Name="data_rozpoczecia" Type="datetime" />
+          <Property Name="data_zakonczenia" Type="datetime" />
+          <Property Name="id_dozorcy" Type="int" Nullable="false" />
+          <Property Name="id_budynku" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FakturyNapraw">
+          <Key>
+            <PropertyRef Name="id_faktury" />
+          </Key>
+          <Property Name="id_faktury" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_naprawy" Type="int" />
+          <Property Name="cena" Type="real" Nullable="false" />
+          <Property Name="numer_faktury" Type="int" Nullable="false" />
+          <Property Name="data_platnosci" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FakturyWynajem">
+          <Key>
+            <PropertyRef Name="id_faktury" />
+          </Key>
+          <Property Name="id_faktury" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_wynajem" Type="int" />
+          <Property Name="cena" Type="real" Nullable="false" />
+          <Property Name="numer_faktury" Type="int" Nullable="false" />
+          <Property Name="data_platnosci" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Firmy">
+          <Key>
+            <PropertyRef Name="id_firmy" />
+          </Key>
+          <Property Name="id_firmy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NIP" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nr_telefonu" Type="varchar" MaxLength="12" />
+          <Property Name="nazwa_firmy" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mieszkania">
+          <Key>
+            <PropertyRef Name="id_mieszkania" />
+          </Key>
+          <Property Name="id_mieszkania" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_budynku" Type="int" />
+          <Property Name="numer" Type="int" Nullable="false" />
+          <Property Name="metraz" Type="real" />
+          <Property Name="opis" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Najemcy">
+          <Key>
+            <PropertyRef Name="id_najemcy" />
+          </Key>
+          <Property Name="id_najemcy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nr_telefonu" Type="varchar" MaxLength="12" />
+          <Property Name="imie" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PESEL" Type="varchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Naprawy">
+          <Key>
+            <PropertyRef Name="id_naprawy" />
+          </Key>
+          <Property Name="id_naprawy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usterki" Type="int" />
+          <Property Name="id_firmy" Type="int" />
+          <Property Name="nr_telefonu" Type="varchar" MaxLength="12" />
+          <Property Name="stan" Type="varchar" MaxLength="30" />
+          <Property Name="data_zlecenia" Type="datetime" />
+          <Property Name="data_rozpoczecia" Type="datetime" />
+          <Property Name="data_ukonczenia" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Platnosci">
+          <Key>
+            <PropertyRef Name="id_platnosci" />
+          </Key>
+          <Property Name="id_platnosci" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_wynajmu" Type="int" />
+          <Property Name="data_platnosci" Type="datetime" />
+          <Property Name="cena" Type="real" Nullable="false" />
+          <Property Name="tytul" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StanyNapraw">
+          <Key>
+            <PropertyRef Name="stan" />
+          </Key>
+          <Property Name="stan" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StanyUsterek">
+          <Key>
+            <PropertyRef Name="stan" />
+          </Key>
+          <Property Name="stan" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usterki">
+          <Key>
+            <PropertyRef Name="id_usterki" />
+          </Key>
+          <Property Name="id_usterki" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_mieszkania" Type="int" />
+          <Property Name="opis" Type="varchar" MaxLength="500" />
+          <Property Name="stan" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Wynajmy">
+          <Key>
+            <PropertyRef Name="id_wynajmu" />
+          </Key>
+          <Property Name="id_wynajmu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_mieszkania" Type="int" />
+          <Property Name="data_rozpoczecia" Type="datetime" />
+          <Property Name="data_zakonczenia" Type="datetime" />
+          <Property Name="id_najemcy" Type="int" />
+          <Property Name="cena_miesieczna" Type="real" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBProject.dbo.BudynkiMieszkaniaUsterki' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BudynkiMieszkaniaUsterki">
+          <Key>
+            <PropertyRef Name="adres_budynku" />
+            <PropertyRef Name="numer" />
+          </Key>
+          <Property Name="opis" Type="varchar" MaxLength="500" />
+          <Property Name="stan" Type="varchar" MaxLength="30" />
+          <Property Name="adres_budynku" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numer" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Dozorowan__id_bu__5441852A">
+          <End Role="Budynki" Type="Self.Budynki" Multiplicity="1" />
+          <End Role="Dozorowania" Type="Self.Dozorowania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budynki">
+              <PropertyRef Name="id_budynku" />
+            </Principal>
+            <Dependent Role="Dozorowania">
+              <PropertyRef Name="id_budynku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dozorowan__id_do__534D60F1">
+          <End Role="Dozorcy" Type="Self.Dozorcy" Multiplicity="1" />
+          <End Role="Dozorowania" Type="Self.Dozorowania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dozorcy">
+              <PropertyRef Name="id_dozorcy" />
+            </Principal>
+            <Dependent Role="Dozorowania">
+              <PropertyRef Name="id_dozorcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FakturyNa__id_na__4BAC3F29">
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="0..1" />
+          <End Role="FakturyNapraw" Type="Self.FakturyNapraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Naprawy">
+              <PropertyRef Name="id_naprawy" />
+            </Principal>
+            <Dependent Role="FakturyNapraw">
+              <PropertyRef Name="id_naprawy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FakturyWy__id_wy__5DCAEF64">
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="0..1" />
+          <End Role="FakturyWynajem" Type="Self.FakturyWynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wynajmy">
+              <PropertyRef Name="id_wynajmu" />
+            </Principal>
+            <Dependent Role="FakturyWynajem">
+              <PropertyRef Name="id_wynajem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mieszkani__id_bu__3D5E1FD2">
+          <End Role="Budynki" Type="Self.Budynki" Multiplicity="0..1" />
+          <End Role="Mieszkania" Type="Self.Mieszkania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budynki">
+              <PropertyRef Name="id_budynku" />
+            </Principal>
+            <Dependent Role="Mieszkania">
+              <PropertyRef Name="id_budynku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Naprawy__id_firm__46E78A0C">
+          <End Role="Firmy" Type="Self.Firmy" Multiplicity="0..1" />
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmy">
+              <PropertyRef Name="id_firmy" />
+            </Principal>
+            <Dependent Role="Naprawy">
+              <PropertyRef Name="id_firmy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Naprawy__id_uste__45F365D3">
+          <End Role="Usterki" Type="Self.Usterki" Multiplicity="0..1" />
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usterki">
+              <PropertyRef Name="id_usterki" />
+            </Principal>
+            <Dependent Role="Naprawy">
+              <PropertyRef Name="id_usterki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Naprawy__stan__47DBAE45">
+          <End Role="StanyNapraw" Type="Self.StanyNapraw" Multiplicity="0..1" />
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StanyNapraw">
+              <PropertyRef Name="stan" />
+            </Principal>
+            <Dependent Role="Naprawy">
+              <PropertyRef Name="stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Platnosci__id_wy__619B8048">
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="0..1" />
+          <End Role="Platnosci" Type="Self.Platnosci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wynajmy">
+              <PropertyRef Name="id_wynajmu" />
+            </Principal>
+            <Dependent Role="Platnosci">
+              <PropertyRef Name="id_wynajmu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usterki__id_mies__403A8C7D">
+          <End Role="Mieszkania" Type="Self.Mieszkania" Multiplicity="0..1" />
+          <End Role="Usterki" Type="Self.Usterki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mieszkania">
+              <PropertyRef Name="id_mieszkania" />
+            </Principal>
+            <Dependent Role="Usterki">
+              <PropertyRef Name="id_mieszkania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usterki__stan__412EB0B6">
+          <End Role="StanyUsterek" Type="Self.StanyUsterek" Multiplicity="0..1" />
+          <End Role="Usterki" Type="Self.Usterki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StanyUsterek">
+              <PropertyRef Name="stan" />
+            </Principal>
+            <Dependent Role="Usterki">
+              <PropertyRef Name="stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wynajmy__id_mies__59FA5E80">
+          <End Role="Mieszkania" Type="Self.Mieszkania" Multiplicity="0..1" />
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mieszkania">
+              <PropertyRef Name="id_mieszkania" />
+            </Principal>
+            <Dependent Role="Wynajmy">
+              <PropertyRef Name="id_mieszkania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wynajmy__id_naje__5AEE82B9">
+          <End Role="Najemcy" Type="Self.Najemcy" Multiplicity="0..1" />
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Najemcy">
+              <PropertyRef Name="id_najemcy" />
+            </Principal>
+            <Dependent Role="Wynajmy">
+              <PropertyRef Name="id_najemcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBProjectModelStoreContainer">
+          <EntitySet Name="Budynki" EntityType="Self.Budynki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dozorcy" EntityType="Self.Dozorcy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dozorowania" EntityType="Self.Dozorowania" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FakturyNapraw" EntityType="Self.FakturyNapraw" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FakturyWynajem" EntityType="Self.FakturyWynajem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Firmy" EntityType="Self.Firmy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mieszkania" EntityType="Self.Mieszkania" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Najemcy" EntityType="Self.Najemcy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Naprawy" EntityType="Self.Naprawy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Platnosci" EntityType="Self.Platnosci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StanyNapraw" EntityType="Self.StanyNapraw" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StanyUsterek" EntityType="Self.StanyUsterek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usterki" EntityType="Self.Usterki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wynajmy" EntityType="Self.Wynajmy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BudynkiMieszkaniaUsterki" EntityType="Self.BudynkiMieszkaniaUsterki" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BudynkiMieszkaniaUsterki].[opis] AS [opis], 
+    [BudynkiMieszkaniaUsterki].[stan] AS [stan], 
+    [BudynkiMieszkaniaUsterki].[adres_budynku] AS [adres_budynku], 
+    [BudynkiMieszkaniaUsterki].[numer] AS [numer]
+    FROM [dbo].[BudynkiMieszkaniaUsterki] AS [BudynkiMieszkaniaUsterki]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Dozorowan__id_bu__5441852A" Association="Self.FK__Dozorowan__id_bu__5441852A">
+            <End Role="Budynki" EntitySet="Budynki" />
+            <End Role="Dozorowania" EntitySet="Dozorowania" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dozorowan__id_do__534D60F1" Association="Self.FK__Dozorowan__id_do__534D60F1">
+            <End Role="Dozorcy" EntitySet="Dozorcy" />
+            <End Role="Dozorowania" EntitySet="Dozorowania" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FakturyNa__id_na__4BAC3F29" Association="Self.FK__FakturyNa__id_na__4BAC3F29">
+            <End Role="Naprawy" EntitySet="Naprawy" />
+            <End Role="FakturyNapraw" EntitySet="FakturyNapraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FakturyWy__id_wy__5DCAEF64" Association="Self.FK__FakturyWy__id_wy__5DCAEF64">
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+            <End Role="FakturyWynajem" EntitySet="FakturyWynajem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mieszkani__id_bu__3D5E1FD2" Association="Self.FK__Mieszkani__id_bu__3D5E1FD2">
+            <End Role="Budynki" EntitySet="Budynki" />
+            <End Role="Mieszkania" EntitySet="Mieszkania" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Naprawy__id_firm__46E78A0C" Association="Self.FK__Naprawy__id_firm__46E78A0C">
+            <End Role="Firmy" EntitySet="Firmy" />
+            <End Role="Naprawy" EntitySet="Naprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Naprawy__id_uste__45F365D3" Association="Self.FK__Naprawy__id_uste__45F365D3">
+            <End Role="Usterki" EntitySet="Usterki" />
+            <End Role="Naprawy" EntitySet="Naprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Naprawy__stan__47DBAE45" Association="Self.FK__Naprawy__stan__47DBAE45">
+            <End Role="StanyNapraw" EntitySet="StanyNapraw" />
+            <End Role="Naprawy" EntitySet="Naprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Platnosci__id_wy__619B8048" Association="Self.FK__Platnosci__id_wy__619B8048">
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+            <End Role="Platnosci" EntitySet="Platnosci" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usterki__id_mies__403A8C7D" Association="Self.FK__Usterki__id_mies__403A8C7D">
+            <End Role="Mieszkania" EntitySet="Mieszkania" />
+            <End Role="Usterki" EntitySet="Usterki" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usterki__stan__412EB0B6" Association="Self.FK__Usterki__stan__412EB0B6">
+            <End Role="StanyUsterek" EntitySet="StanyUsterek" />
+            <End Role="Usterki" EntitySet="Usterki" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wynajmy__id_mies__59FA5E80" Association="Self.FK__Wynajmy__id_mies__59FA5E80">
+            <End Role="Mieszkania" EntitySet="Mieszkania" />
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wynajmy__id_naje__5AEE82B9" Association="Self.FK__Wynajmy__id_naje__5AEE82B9">
+            <End Role="Najemcy" EntitySet="Najemcy" />
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Budynki">
+          <Key>
+            <PropertyRef Name="id_budynku" />
+          </Key>
+          <Property Name="id_budynku" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adres_budynku" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Dozorowania" Relationship="Self.FK__Dozorowan__id_bu__5441852A" FromRole="Budynki" ToRole="Dozorowania" />
+          <NavigationProperty Name="Mieszkania" Relationship="Self.FK__Mieszkani__id_bu__3D5E1FD2" FromRole="Budynki" ToRole="Mieszkania" />
+        </EntityType>
+        <EntityType Name="Dozorcy">
+          <Key>
+            <PropertyRef Name="id_dozorcy" />
+          </Key>
+          <Property Name="id_dozorcy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nr_telefonu" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Imie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PESEL" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Dozorowania" Relationship="Self.FK__Dozorowan__id_do__534D60F1" FromRole="Dozorcy" ToRole="Dozorowania" />
+        </EntityType>
+        <EntityType Name="Dozorowania">
+          <Key>
+            <PropertyRef Name="id_dozorcy" />
+            <PropertyRef Name="id_budynku" />
+          </Key>
+          <Property Name="data_rozpoczecia" Type="DateTime" Precision="3" />
+          <Property Name="data_zakonczenia" Type="DateTime" Precision="3" />
+          <Property Name="id_dozorcy" Type="Int32" Nullable="false" />
+          <Property Name="id_budynku" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Budynki" Relationship="Self.FK__Dozorowan__id_bu__5441852A" FromRole="Dozorowania" ToRole="Budynki" />
+          <NavigationProperty Name="Dozorcy" Relationship="Self.FK__Dozorowan__id_do__534D60F1" FromRole="Dozorowania" ToRole="Dozorcy" />
+        </EntityType>
+        <EntityType Name="FakturyNapraw">
+          <Key>
+            <PropertyRef Name="id_faktury" />
+          </Key>
+          <Property Name="id_faktury" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_naprawy" Type="Int32" />
+          <Property Name="cena" Type="Single" Nullable="false" />
+          <Property Name="numer_faktury" Type="Int32" Nullable="false" />
+          <Property Name="data_platnosci" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Naprawy" Relationship="Self.FK__FakturyNa__id_na__4BAC3F29" FromRole="FakturyNapraw" ToRole="Naprawy" />
+        </EntityType>
+        <EntityType Name="FakturyWynajem">
+          <Key>
+            <PropertyRef Name="id_faktury" />
+          </Key>
+          <Property Name="id_faktury" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_wynajem" Type="Int32" />
+          <Property Name="cena" Type="Single" Nullable="false" />
+          <Property Name="numer_faktury" Type="Int32" Nullable="false" />
+          <Property Name="data_platnosci" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Wynajmy" Relationship="Self.FK__FakturyWy__id_wy__5DCAEF64" FromRole="FakturyWynajem" ToRole="Wynajmy" />
+        </EntityType>
+        <EntityType Name="Firmy">
+          <Key>
+            <PropertyRef Name="id_firmy" />
+          </Key>
+          <Property Name="id_firmy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NIP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nr_telefonu" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="nazwa_firmy" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Naprawy" Relationship="Self.FK__Naprawy__id_firm__46E78A0C" FromRole="Firmy" ToRole="Naprawy" />
+        </EntityType>
+        <EntityType Name="Mieszkania">
+          <Key>
+            <PropertyRef Name="id_mieszkania" />
+          </Key>
+          <Property Name="id_mieszkania" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_budynku" Type="Int32" />
+          <Property Name="numer" Type="Int32" Nullable="false" />
+          <Property Name="metraz" Type="Single" />
+          <Property Name="opis" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Budynki" Relationship="Self.FK__Mieszkani__id_bu__3D5E1FD2" FromRole="Mieszkania" ToRole="Budynki" />
+          <NavigationProperty Name="Usterki" Relationship="Self.FK__Usterki__id_mies__403A8C7D" FromRole="Mieszkania" ToRole="Usterki" />
+          <NavigationProperty Name="Wynajmy" Relationship="Self.FK__Wynajmy__id_mies__59FA5E80" FromRole="Mieszkania" ToRole="Wynajmy" />
+        </EntityType>
+        <EntityType Name="Najemcy">
+          <Key>
+            <PropertyRef Name="id_najemcy" />
+          </Key>
+          <Property Name="id_najemcy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nr_telefonu" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="imie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PESEL" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Wynajmy" Relationship="Self.FK__Wynajmy__id_naje__5AEE82B9" FromRole="Najemcy" ToRole="Wynajmy" />
+        </EntityType>
+        <EntityType Name="Naprawy">
+          <Key>
+            <PropertyRef Name="id_naprawy" />
+          </Key>
+          <Property Name="id_naprawy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usterki" Type="Int32" />
+          <Property Name="id_firmy" Type="Int32" />
+          <Property Name="nr_telefonu" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="stan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="data_zlecenia" Type="DateTime" Precision="3" />
+          <Property Name="data_rozpoczecia" Type="DateTime" Precision="3" />
+          <Property Name="data_ukonczenia" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FakturyNapraw" Relationship="Self.FK__FakturyNa__id_na__4BAC3F29" FromRole="Naprawy" ToRole="FakturyNapraw" />
+          <NavigationProperty Name="Firmy" Relationship="Self.FK__Naprawy__id_firm__46E78A0C" FromRole="Naprawy" ToRole="Firmy" />
+          <NavigationProperty Name="Usterki" Relationship="Self.FK__Naprawy__id_uste__45F365D3" FromRole="Naprawy" ToRole="Usterki" />
+          <NavigationProperty Name="StanyNapraw" Relationship="Self.FK__Naprawy__stan__47DBAE45" FromRole="Naprawy" ToRole="StanyNapraw" />
+        </EntityType>
+        <EntityType Name="Platnosci">
+          <Key>
+            <PropertyRef Name="id_platnosci" />
+          </Key>
+          <Property Name="id_platnosci" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_wynajmu" Type="Int32" />
+          <Property Name="data_platnosci" Type="DateTime" Precision="3" />
+          <Property Name="cena" Type="Single" Nullable="false" />
+          <Property Name="tytul" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Wynajmy" Relationship="Self.FK__Platnosci__id_wy__619B8048" FromRole="Platnosci" ToRole="Wynajmy" />
+        </EntityType>
+        <EntityType Name="StanyNapraw">
+          <Key>
+            <PropertyRef Name="stan" />
+          </Key>
+          <Property Name="stan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Naprawy" Relationship="Self.FK__Naprawy__stan__47DBAE45" FromRole="StanyNapraw" ToRole="Naprawy" />
+        </EntityType>
+        <EntityType Name="StanyUsterek">
+          <Key>
+            <PropertyRef Name="stan" />
+          </Key>
+          <Property Name="stan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usterki" Relationship="Self.FK__Usterki__stan__412EB0B6" FromRole="StanyUsterek" ToRole="Usterki" />
+        </EntityType>
+        <EntityType Name="Usterki">
+          <Key>
+            <PropertyRef Name="id_usterki" />
+          </Key>
+          <Property Name="id_usterki" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_mieszkania" Type="Int32" />
+          <Property Name="opis" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="stan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Mieszkania" Relationship="Self.FK__Usterki__id_mies__403A8C7D" FromRole="Usterki" ToRole="Mieszkania" />
+          <NavigationProperty Name="Naprawy" Relationship="Self.FK__Naprawy__id_uste__45F365D3" FromRole="Usterki" ToRole="Naprawy" />
+          <NavigationProperty Name="StanyUsterek" Relationship="Self.FK__Usterki__stan__412EB0B6" FromRole="Usterki" ToRole="StanyUsterek" />
+        </EntityType>
+        <EntityType Name="Wynajmy">
+          <Key>
+            <PropertyRef Name="id_wynajmu" />
+          </Key>
+          <Property Name="id_wynajmu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_mieszkania" Type="Int32" />
+          <Property Name="data_rozpoczecia" Type="DateTime" Precision="3" />
+          <Property Name="data_zakonczenia" Type="DateTime" Precision="3" />
+          <Property Name="id_najemcy" Type="Int32" />
+          <Property Name="cena_miesieczna" Type="Single" />
+          <NavigationProperty Name="FakturyWynajem" Relationship="Self.FK__FakturyWy__id_wy__5DCAEF64" FromRole="Wynajmy" ToRole="FakturyWynajem" />
+          <NavigationProperty Name="Mieszkania" Relationship="Self.FK__Wynajmy__id_mies__59FA5E80" FromRole="Wynajmy" ToRole="Mieszkania" />
+          <NavigationProperty Name="Najemcy" Relationship="Self.FK__Wynajmy__id_naje__5AEE82B9" FromRole="Wynajmy" ToRole="Najemcy" />
+          <NavigationProperty Name="Platnosci" Relationship="Self.FK__Platnosci__id_wy__619B8048" FromRole="Wynajmy" ToRole="Platnosci" />
+        </EntityType>
+        <EntityType Name="BudynkiMieszkaniaUsterki">
+          <Key>
+            <PropertyRef Name="adres_budynku" />
+            <PropertyRef Name="numer" />
+          </Key>
+          <Property Name="opis" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="stan" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="adres_budynku" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numer" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Dozorowan__id_bu__5441852A">
+          <End Role="Budynki" Type="Self.Budynki" Multiplicity="1" />
+          <End Role="Dozorowania" Type="Self.Dozorowania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budynki">
+              <PropertyRef Name="id_budynku" />
+            </Principal>
+            <Dependent Role="Dozorowania">
+              <PropertyRef Name="id_budynku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mieszkani__id_bu__3D5E1FD2">
+          <End Role="Budynki" Type="Self.Budynki" Multiplicity="0..1" />
+          <End Role="Mieszkania" Type="Self.Mieszkania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budynki">
+              <PropertyRef Name="id_budynku" />
+            </Principal>
+            <Dependent Role="Mieszkania">
+              <PropertyRef Name="id_budynku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Dozorowan__id_do__534D60F1">
+          <End Role="Dozorcy" Type="Self.Dozorcy" Multiplicity="1" />
+          <End Role="Dozorowania" Type="Self.Dozorowania" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dozorcy">
+              <PropertyRef Name="id_dozorcy" />
+            </Principal>
+            <Dependent Role="Dozorowania">
+              <PropertyRef Name="id_dozorcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FakturyNa__id_na__4BAC3F29">
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="0..1" />
+          <End Role="FakturyNapraw" Type="Self.FakturyNapraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Naprawy">
+              <PropertyRef Name="id_naprawy" />
+            </Principal>
+            <Dependent Role="FakturyNapraw">
+              <PropertyRef Name="id_naprawy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FakturyWy__id_wy__5DCAEF64">
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="0..1" />
+          <End Role="FakturyWynajem" Type="Self.FakturyWynajem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wynajmy">
+              <PropertyRef Name="id_wynajmu" />
+            </Principal>
+            <Dependent Role="FakturyWynajem">
+              <PropertyRef Name="id_wynajem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Naprawy__id_firm__46E78A0C">
+          <End Role="Firmy" Type="Self.Firmy" Multiplicity="0..1" />
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Firmy">
+              <PropertyRef Name="id_firmy" />
+            </Principal>
+            <Dependent Role="Naprawy">
+              <PropertyRef Name="id_firmy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usterki__id_mies__403A8C7D">
+          <End Role="Mieszkania" Type="Self.Mieszkania" Multiplicity="0..1" />
+          <End Role="Usterki" Type="Self.Usterki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mieszkania">
+              <PropertyRef Name="id_mieszkania" />
+            </Principal>
+            <Dependent Role="Usterki">
+              <PropertyRef Name="id_mieszkania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wynajmy__id_mies__59FA5E80">
+          <End Role="Mieszkania" Type="Self.Mieszkania" Multiplicity="0..1" />
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mieszkania">
+              <PropertyRef Name="id_mieszkania" />
+            </Principal>
+            <Dependent Role="Wynajmy">
+              <PropertyRef Name="id_mieszkania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wynajmy__id_naje__5AEE82B9">
+          <End Role="Najemcy" Type="Self.Najemcy" Multiplicity="0..1" />
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Najemcy">
+              <PropertyRef Name="id_najemcy" />
+            </Principal>
+            <Dependent Role="Wynajmy">
+              <PropertyRef Name="id_najemcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Naprawy__id_uste__45F365D3">
+          <End Role="Usterki" Type="Self.Usterki" Multiplicity="0..1" />
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usterki">
+              <PropertyRef Name="id_usterki" />
+            </Principal>
+            <Dependent Role="Naprawy">
+              <PropertyRef Name="id_usterki" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Naprawy__stan__47DBAE45">
+          <End Role="StanyNapraw" Type="Self.StanyNapraw" Multiplicity="0..1" />
+          <End Role="Naprawy" Type="Self.Naprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StanyNapraw">
+              <PropertyRef Name="stan" />
+            </Principal>
+            <Dependent Role="Naprawy">
+              <PropertyRef Name="stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Platnosci__id_wy__619B8048">
+          <End Role="Wynajmy" Type="Self.Wynajmy" Multiplicity="0..1" />
+          <End Role="Platnosci" Type="Self.Platnosci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wynajmy">
+              <PropertyRef Name="id_wynajmu" />
+            </Principal>
+            <Dependent Role="Platnosci">
+              <PropertyRef Name="id_wynajmu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usterki__stan__412EB0B6">
+          <End Role="StanyUsterek" Type="Self.StanyUsterek" Multiplicity="0..1" />
+          <End Role="Usterki" Type="Self.Usterki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StanyUsterek">
+              <PropertyRef Name="stan" />
+            </Principal>
+            <Dependent Role="Usterki">
+              <PropertyRef Name="stan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CommunitySystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Budynki" EntityType="Self.Budynki" />
+          <EntitySet Name="Dozorcy" EntityType="Self.Dozorcy" />
+          <EntitySet Name="Dozorowania" EntityType="Self.Dozorowania" />
+          <EntitySet Name="FakturyNapraw" EntityType="Self.FakturyNapraw" />
+          <EntitySet Name="FakturyWynajem" EntityType="Self.FakturyWynajem" />
+          <EntitySet Name="Firmy" EntityType="Self.Firmy" />
+          <EntitySet Name="Mieszkania" EntityType="Self.Mieszkania" />
+          <EntitySet Name="Najemcy" EntityType="Self.Najemcy" />
+          <EntitySet Name="Naprawy" EntityType="Self.Naprawy" />
+          <EntitySet Name="Platnosci" EntityType="Self.Platnosci" />
+          <EntitySet Name="StanyNapraw" EntityType="Self.StanyNapraw" />
+          <EntitySet Name="StanyUsterek" EntityType="Self.StanyUsterek" />
+          <EntitySet Name="Usterki" EntityType="Self.Usterki" />
+          <EntitySet Name="Wynajmy" EntityType="Self.Wynajmy" />
+          <EntitySet Name="BudynkiMieszkaniaUsterki" EntityType="Self.BudynkiMieszkaniaUsterki" />
+          <AssociationSet Name="FK__Dozorowan__id_bu__5441852A" Association="Self.FK__Dozorowan__id_bu__5441852A">
+            <End Role="Budynki" EntitySet="Budynki" />
+            <End Role="Dozorowania" EntitySet="Dozorowania" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mieszkani__id_bu__3D5E1FD2" Association="Self.FK__Mieszkani__id_bu__3D5E1FD2">
+            <End Role="Budynki" EntitySet="Budynki" />
+            <End Role="Mieszkania" EntitySet="Mieszkania" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Dozorowan__id_do__534D60F1" Association="Self.FK__Dozorowan__id_do__534D60F1">
+            <End Role="Dozorcy" EntitySet="Dozorcy" />
+            <End Role="Dozorowania" EntitySet="Dozorowania" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FakturyNa__id_na__4BAC3F29" Association="Self.FK__FakturyNa__id_na__4BAC3F29">
+            <End Role="Naprawy" EntitySet="Naprawy" />
+            <End Role="FakturyNapraw" EntitySet="FakturyNapraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FakturyWy__id_wy__5DCAEF64" Association="Self.FK__FakturyWy__id_wy__5DCAEF64">
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+            <End Role="FakturyWynajem" EntitySet="FakturyWynajem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Naprawy__id_firm__46E78A0C" Association="Self.FK__Naprawy__id_firm__46E78A0C">
+            <End Role="Firmy" EntitySet="Firmy" />
+            <End Role="Naprawy" EntitySet="Naprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usterki__id_mies__403A8C7D" Association="Self.FK__Usterki__id_mies__403A8C7D">
+            <End Role="Mieszkania" EntitySet="Mieszkania" />
+            <End Role="Usterki" EntitySet="Usterki" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wynajmy__id_mies__59FA5E80" Association="Self.FK__Wynajmy__id_mies__59FA5E80">
+            <End Role="Mieszkania" EntitySet="Mieszkania" />
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wynajmy__id_naje__5AEE82B9" Association="Self.FK__Wynajmy__id_naje__5AEE82B9">
+            <End Role="Najemcy" EntitySet="Najemcy" />
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Naprawy__id_uste__45F365D3" Association="Self.FK__Naprawy__id_uste__45F365D3">
+            <End Role="Usterki" EntitySet="Usterki" />
+            <End Role="Naprawy" EntitySet="Naprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Naprawy__stan__47DBAE45" Association="Self.FK__Naprawy__stan__47DBAE45">
+            <End Role="StanyNapraw" EntitySet="StanyNapraw" />
+            <End Role="Naprawy" EntitySet="Naprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Platnosci__id_wy__619B8048" Association="Self.FK__Platnosci__id_wy__619B8048">
+            <End Role="Wynajmy" EntitySet="Wynajmy" />
+            <End Role="Platnosci" EntitySet="Platnosci" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usterki__stan__412EB0B6" Association="Self.FK__Usterki__stan__412EB0B6">
+            <End Role="StanyUsterek" EntitySet="StanyUsterek" />
+            <End Role="Usterki" EntitySet="Usterki" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBProjectModelStoreContainer" CdmEntityContainer="CommunitySystemEntities">
+          <EntitySetMapping Name="Budynki">
+            <EntityTypeMapping TypeName="DBProjectModel.Budynki">
+              <MappingFragment StoreEntitySet="Budynki">
+                <ScalarProperty Name="id_budynku" ColumnName="id_budynku" />
+                <ScalarProperty Name="adres_budynku" ColumnName="adres_budynku" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dozorcy">
+            <EntityTypeMapping TypeName="DBProjectModel.Dozorcy">
+              <MappingFragment StoreEntitySet="Dozorcy">
+                <ScalarProperty Name="id_dozorcy" ColumnName="id_dozorcy" />
+                <ScalarProperty Name="nr_telefonu" ColumnName="nr_telefonu" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dozorowania">
+            <EntityTypeMapping TypeName="DBProjectModel.Dozorowania">
+              <MappingFragment StoreEntitySet="Dozorowania">
+                <ScalarProperty Name="data_rozpoczecia" ColumnName="data_rozpoczecia" />
+                <ScalarProperty Name="data_zakonczenia" ColumnName="data_zakonczenia" />
+                <ScalarProperty Name="id_dozorcy" ColumnName="id_dozorcy" />
+                <ScalarProperty Name="id_budynku" ColumnName="id_budynku" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FakturyNapraw">
+            <EntityTypeMapping TypeName="DBProjectModel.FakturyNapraw">
+              <MappingFragment StoreEntitySet="FakturyNapraw">
+                <ScalarProperty Name="id_faktury" ColumnName="id_faktury" />
+                <ScalarProperty Name="id_naprawy" ColumnName="id_naprawy" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="numer_faktury" ColumnName="numer_faktury" />
+                <ScalarProperty Name="data_platnosci" ColumnName="data_platnosci" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FakturyWynajem">
+            <EntityTypeMapping TypeName="DBProjectModel.FakturyWynajem">
+              <MappingFragment StoreEntitySet="FakturyWynajem">
+                <ScalarProperty Name="id_faktury" ColumnName="id_faktury" />
+                <ScalarProperty Name="id_wynajem" ColumnName="id_wynajem" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="numer_faktury" ColumnName="numer_faktury" />
+                <ScalarProperty Name="data_platnosci" ColumnName="data_platnosci" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Firmy">
+            <EntityTypeMapping TypeName="DBProjectModel.Firmy">
+              <MappingFragment StoreEntitySet="Firmy">
+                <ScalarProperty Name="id_firmy" ColumnName="id_firmy" />
+                <ScalarProperty Name="NIP" ColumnName="NIP" />
+                <ScalarProperty Name="nr_telefonu" ColumnName="nr_telefonu" />
+                <ScalarProperty Name="nazwa_firmy" ColumnName="nazwa_firmy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mieszkania">
+            <EntityTypeMapping TypeName="DBProjectModel.Mieszkania">
+              <MappingFragment StoreEntitySet="Mieszkania">
+                <ScalarProperty Name="id_mieszkania" ColumnName="id_mieszkania" />
+                <ScalarProperty Name="id_budynku" ColumnName="id_budynku" />
+                <ScalarProperty Name="numer" ColumnName="numer" />
+                <ScalarProperty Name="metraz" ColumnName="metraz" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Najemcy">
+            <EntityTypeMapping TypeName="DBProjectModel.Najemcy">
+              <MappingFragment StoreEntitySet="Najemcy">
+                <ScalarProperty Name="id_najemcy" ColumnName="id_najemcy" />
+                <ScalarProperty Name="nr_telefonu" ColumnName="nr_telefonu" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Naprawy">
+            <EntityTypeMapping TypeName="DBProjectModel.Naprawy">
+              <MappingFragment StoreEntitySet="Naprawy">
+                <ScalarProperty Name="id_naprawy" ColumnName="id_naprawy" />
+                <ScalarProperty Name="id_usterki" ColumnName="id_usterki" />
+                <ScalarProperty Name="id_firmy" ColumnName="id_firmy" />
+                <ScalarProperty Name="nr_telefonu" ColumnName="nr_telefonu" />
+                <ScalarProperty Name="stan" ColumnName="stan" />
+                <ScalarProperty Name="data_zlecenia" ColumnName="data_zlecenia" />
+                <ScalarProperty Name="data_rozpoczecia" ColumnName="data_rozpoczecia" />
+                <ScalarProperty Name="data_ukonczenia" ColumnName="data_ukonczenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Platnosci">
+            <EntityTypeMapping TypeName="DBProjectModel.Platnosci">
+              <MappingFragment StoreEntitySet="Platnosci">
+                <ScalarProperty Name="id_platnosci" ColumnName="id_platnosci" />
+                <ScalarProperty Name="id_wynajmu" ColumnName="id_wynajmu" />
+                <ScalarProperty Name="data_platnosci" ColumnName="data_platnosci" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="tytul" ColumnName="tytul" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StanyNapraw">
+            <EntityTypeMapping TypeName="DBProjectModel.StanyNapraw">
+              <MappingFragment StoreEntitySet="StanyNapraw">
+                <ScalarProperty Name="stan" ColumnName="stan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StanyUsterek">
+            <EntityTypeMapping TypeName="DBProjectModel.StanyUsterek">
+              <MappingFragment StoreEntitySet="StanyUsterek">
+                <ScalarProperty Name="stan" ColumnName="stan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usterki">
+            <EntityTypeMapping TypeName="DBProjectModel.Usterki">
+              <MappingFragment StoreEntitySet="Usterki">
+                <ScalarProperty Name="id_usterki" ColumnName="id_usterki" />
+                <ScalarProperty Name="id_mieszkania" ColumnName="id_mieszkania" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="stan" ColumnName="stan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wynajmy">
+            <EntityTypeMapping TypeName="DBProjectModel.Wynajmy">
+              <MappingFragment StoreEntitySet="Wynajmy">
+                <ScalarProperty Name="id_wynajmu" ColumnName="id_wynajmu" />
+                <ScalarProperty Name="id_mieszkania" ColumnName="id_mieszkania" />
+                <ScalarProperty Name="data_rozpoczecia" ColumnName="data_rozpoczecia" />
+                <ScalarProperty Name="data_zakonczenia" ColumnName="data_zakonczenia" />
+                <ScalarProperty Name="id_najemcy" ColumnName="id_najemcy" />
+                <ScalarProperty Name="cena_miesieczna" ColumnName="cena_miesieczna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BudynkiMieszkaniaUsterki">
+            <EntityTypeMapping TypeName="DBProjectModel.BudynkiMieszkaniaUsterki">
+              <MappingFragment StoreEntitySet="BudynkiMieszkaniaUsterki">
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="stan" ColumnName="stan" />
+                <ScalarProperty Name="adres_budynku" ColumnName="adres_budynku" />
+                <ScalarProperty Name="numer" ColumnName="numer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
