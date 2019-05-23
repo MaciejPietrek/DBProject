@@ -16,5 +16,10 @@ namespace DBProject
         {
             InitializeComponent();
         }
+
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -52,5 +52,52 @@ namespace DBProject
             form.dataGridView1.DataSource = form.Dataset.Where(x => marked.Contains(x.identyfikator_najemcy)).ToList();
             form.Show();
         }
+
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            var list = new List<string>
+            {
+                Methods.GetMemberName(() => Dataset[0].identyfikator_najemcy),
+                Methods.GetMemberName(() => Dataset[0].numer_telefonu),
+                Methods.GetMemberName(() => Dataset[0].imie),
+                Methods.GetMemberName(() => Dataset[0].nazwisko),
+                Methods.GetMemberName(() => Dataset[0].PESEL)
+            };
+
+            var form = new FormSearch(list);
+
+            form.button.MouseClick += new MouseEventHandler((sendere, ee) =>
+            {
+                var tmpDataset = Dataset;
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_najemcy == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.numer_telefonu == form.getStringAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.imie == form.getStringAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.nazwisko == form.getStringAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.PESEL == form.getStringAtCursor()).ToList();
+                }
+                form.resetCursor();
+                dataGridView1.DataSource = tmpDataset;
+            });
+
+            form.Show();
+        }
     }
 }

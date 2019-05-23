@@ -96,6 +96,7 @@
             this.buttonD.TabIndex = 4;
             this.buttonD.Text = "Szukaj";
             this.buttonD.UseVisualStyleBackColor = true;
+            this.buttonD.Click += new System.EventHandler(this.buttonD_Click);
             // 
             // buttonC
             // 

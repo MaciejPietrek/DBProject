@@ -70,5 +70,58 @@ namespace DBProject
             form.dataGridView1.DataSource = form.Dataset.Where(x => marked.Contains(x.identyfikator_mieszkania)).ToList();
             form.Show();
         }
+
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            var list = new List<string>
+            {
+                Methods.GetMemberName(() => Dataset[0].identyfikator_wynajmnu),
+                Methods.GetMemberName(() => Dataset[0].identyfikator_mieszkania),
+                Methods.GetMemberName(() => Dataset[0].data_rozpoczecia),
+                Methods.GetMemberName(() => Dataset[0].data_zakończenia),
+                Methods.GetMemberName(() => Dataset[0].identyfikator_najemcy),
+                Methods.GetMemberName(() => Dataset[0].cena_miesieczna)
+            };
+
+            var form = new FormSearch(list);
+
+            form.button.MouseClick += new MouseEventHandler((sendere, ee) =>
+            {
+                var tmpDataset = Dataset;
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_wynajmnu == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_mieszkania == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.data_rozpoczecia == form.getDateTimeAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.data_zakończenia == form.getDateTimeAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_najemcy == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.cena_miesieczna == form.getIntAtCursor()).ToList();
+                }
+                form.resetCursor();
+                dataGridView1.DataSource = tmpDataset;
+            });
+
+            form.Show();
+        }
     }
 }

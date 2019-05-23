@@ -50,5 +50,46 @@ namespace DBProject
             form.dataGridView1.DataSource = form.Dataset.Where(x => marked.Contains(x.identyfikator_usterki)).ToList();
             form.Show();
         }
+
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            var list = new List<string>
+            {
+                Methods.GetMemberName(() => Dataset[0].identyfikator_usterki),
+                Methods.GetMemberName(() => Dataset[0].identyfikator_mieszkania),
+                Methods.GetMemberName(() => Dataset[0].stan),
+                Methods.GetMemberName(() => Dataset[0].opis)
+            };
+
+            var form = new FormSearch(list);
+
+            form.button.MouseClick += new MouseEventHandler((sendere, ee) =>
+            {
+                var tmpDataset = Dataset;
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_usterki == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_mieszkania == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.stan == form.getStringAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.opis == form.getStringAtCursor()).ToList();
+                }
+                form.resetCursor();
+                dataGridView1.DataSource = tmpDataset;
+            });
+
+            form.Show();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,12 @@ namespace DBProject
                 result.Add((int)x.Cells[column].Value);
             }
             return result;
+        }
+
+        public static string GetMemberName<T>(Expression<Func<T>> memberExpression)
+        {
+            MemberExpression expressionBody = (MemberExpression)memberExpression.Body;
+            return expressionBody.Member.Name;
         }
     }
 }

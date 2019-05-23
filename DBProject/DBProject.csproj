@@ -61,6 +61,7 @@
     <Compile Include="BudynkiMieszkaniaUsterki.cs">
       <DependentUpon>CommunitySystemDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Classes.cs" />
     <Compile Include="CommunitySystemDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -144,6 +145,12 @@
     </Compile>
     <Compile Include="FormPaymasters.Designer.cs">
       <DependentUpon>FormPaymasters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSearch.Designer.cs">
+      <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="FormSupervisors.cs">
       <SubType>Form</SubType>
@@ -234,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPaymasters.resx">
       <DependentUpon>FormPaymasters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSearch.resx">
+      <DependentUpon>FormSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSupervisors.resx">
       <DependentUpon>FormSupervisors.cs</DependentUpon>

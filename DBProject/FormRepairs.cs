@@ -56,5 +56,64 @@ namespace DBProject
             form.dataGridView1.DataSource = form.Dataset.Where(x => marked.Contains(x.identyfikator_naprawy)).ToList();
             form.Show();
         }
+
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            var list = new List<string>
+            {
+                Methods.GetMemberName(() => Dataset[0].identyfikator_naprawy),
+                Methods.GetMemberName(() => Dataset[0].identyfikator_usterki),
+                Methods.GetMemberName(() => Dataset[0].identyfikator_firmy),
+                Methods.GetMemberName(() => Dataset[0].stan),
+                Methods.GetMemberName(() => Dataset[0].data_zlecenia),
+                Methods.GetMemberName(() => Dataset[0].data_rozpoczecia),
+                Methods.GetMemberName(() => Dataset[0].data_zakonczenia)
+            };
+
+            var form = new FormSearch(list);
+
+            form.button.MouseClick += new MouseEventHandler((sendere, ee) =>
+            {
+                var tmpDataset = Dataset;
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_naprawy == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_usterki == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_firmy == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.stan == form.getStringAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.data_zlecenia == form.getDateTimeAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.data_rozpoczecia == form.getDateTimeAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.data_zakonczenia == form.getDateTimeAtCursor()).ToList();
+                }
+                form.resetCursor();
+                dataGridView1.DataSource = tmpDataset;
+            });
+
+            form.Show();
+        }
     }
 }

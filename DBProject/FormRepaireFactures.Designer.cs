@@ -31,11 +31,11 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.BottomPanel = new System.Windows.Forms.TableLayoutPanel();
             this.BottomPanelRight = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonD = new System.Windows.Forms.Button();
             this.buttonC = new System.Windows.Forms.Button();
             this.buttonB = new System.Windows.Forms.Button();
             this.buttonA = new System.Windows.Forms.Button();
             this.BottomPanelLeft = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonD = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.BottomPanel.SuspendLayout();
             this.BottomPanelRight.SuspendLayout();
@@ -82,6 +82,18 @@
             this.BottomPanelRight.Size = new System.Drawing.Size(286, 29);
             this.BottomPanelRight.TabIndex = 3;
             // 
+            // buttonD
+            // 
+            this.buttonD.AutoSize = true;
+            this.buttonD.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonD.Location = new System.Drawing.Point(234, 3);
+            this.buttonD.Name = "buttonD";
+            this.buttonD.Size = new System.Drawing.Size(49, 23);
+            this.buttonD.TabIndex = 4;
+            this.buttonD.Text = "Szukaj";
+            this.buttonD.UseVisualStyleBackColor = true;
+            this.buttonD.Click += new System.EventHandler(this.buttonD_Click);
+            // 
             // buttonC
             // 
             this.buttonC.AutoSize = true;
@@ -125,17 +137,6 @@
             this.BottomPanelLeft.Name = "BottomPanelLeft";
             this.BottomPanelLeft.Size = new System.Drawing.Size(1, 29);
             this.BottomPanelLeft.TabIndex = 1;
-            // 
-            // buttonD
-            // 
-            this.buttonD.AutoSize = true;
-            this.buttonD.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonD.Location = new System.Drawing.Point(234, 3);
-            this.buttonD.Name = "buttonD";
-            this.buttonD.Size = new System.Drawing.Size(49, 23);
-            this.buttonD.TabIndex = 4;
-            this.buttonD.Text = "Szukaj";
-            this.buttonD.UseVisualStyleBackColor = true;
             // 
             // FormRepaireFactures
             // 

@@ -42,5 +42,43 @@ namespace DBProject
             dataGridView1.DataSource = Dataset;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            var list = new List<string>
+            {
+                Methods.GetMemberName(() => Dataset[0].identyfikator_firmy),
+                Methods.GetMemberName(() => Dataset[0].NIP),
+                Methods.GetMemberName(() => Dataset[0].nazwa_firmy)
+            };
+
+            var form = new FormSearch(list);
+
+            form.button.MouseClick += new MouseEventHandler((sendere, ee) =>
+            {
+                var tmpDataset = Dataset;
+                if (form.atCursorIsNotEmpty())
+                {
+                    var a = int.Parse(form.Fields[0].Item2.Text);
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_firmy == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    var a = form.Fields[1].Item2.Text;
+                    tmpDataset = tmpDataset.Where(x => x.NIP == form.getStringAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    var a = form.Fields[2].Item2.Text;
+                    tmpDataset = tmpDataset.Where(x => x.nazwa_firmy == form.getStringAtCursor()).ToList();
+                }
+                form.resetCursor();
+                dataGridView1.DataSource = tmpDataset;
+            });
+
+            form.Show();
+        }
     }
 }

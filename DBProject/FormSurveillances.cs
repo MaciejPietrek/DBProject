@@ -71,5 +71,46 @@ namespace DBProject
             form.dataGridView1.DataSource = form.Dataset.Where(x => marked.Contains(x.identyfikator_dozorcy)).ToList();
             form.Show();
         }
+
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            var list = new List<string>
+            {
+                Methods.GetMemberName(() => Dataset[0].identyfikator_dozorcy),
+                Methods.GetMemberName(() => Dataset[0].identyfikator_budynku),
+                Methods.GetMemberName(() => Dataset[0].data_rozpoczecia),
+                Methods.GetMemberName(() => Dataset[0].data_zakonczenia)
+            };
+
+            var form = new FormSearch(list);
+
+            form.button.MouseClick += new MouseEventHandler((sendere, ee) =>
+            {
+                var tmpDataset = Dataset;
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_dozorcy == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.identyfikator_budynku == form.getIntAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.data_rozpoczecia == form.getDateTimeAtCursor()).ToList();
+                }
+                form.advanceCursor();
+                if (form.atCursorIsNotEmpty())
+                {
+                    tmpDataset = tmpDataset.Where(x => x.data_zakonczenia == form.getDateTimeAtCursor()).ToList();
+                }
+                form.resetCursor();
+                dataGridView1.DataSource = tmpDataset;
+            });
+
+            form.Show();
+        }
     }
 }
